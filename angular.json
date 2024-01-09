@@ -3,5 +3,113 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "chat-ai-plugin": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        }
+      },
+      "root": "projects/chat-ai-plugin",
+      "sourceRoot": "projects/chat-ai-plugin/src",
+      "prefix": "ma",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/chat-ai-plugin",
+            "index": "projects/chat-ai-plugin/src/index.html",
+            "browser": "projects/chat-ai-plugin/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/chat-ai-plugin/tsconfig.app.json",
+            "inlineStyleLanguage": "less",
+            "assets": [
+              "projects/chat-ai-plugin/src/favicon.ico",
+              "projects/chat-ai-plugin/src/assets"
+            ],
+            "styles": [
+              "projects/chat-ai-plugin/src/styles.less"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "chat-ai-plugin:build:production"
+            },
+            "development": {
+              "buildTarget": "chat-ai-plugin:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "chat-ai-plugin:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/chat-ai-plugin/tsconfig.spec.json",
+            "inlineStyleLanguage": "less",
+            "assets": [
+              "projects/chat-ai-plugin/src/favicon.ico",
+              "projects/chat-ai-plugin/src/assets"
+            ],
+            "styles": [
+              "projects/chat-ai-plugin/src/styles.less"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/chat-ai-plugin/**/*.ts",
+              "projects/chat-ai-plugin/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
